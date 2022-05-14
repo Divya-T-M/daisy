@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<br><br><br><br><br><br>
+ <section class="products">
+
+    <h1 class="heading"> <span>Add Address</span> </h1>
+      </section>
+<form method="post" id="customerForm" data-sellers-url="{% url 'address:ajax_load_sellers' %}" >
+          {% csrf_token %}
+     <div class="justify-content-center">
+                                        <div class="card card-custom pb-4 col-12">
+                                            <div class="card-body mt-0">
+                                                <div class="text-center mb-3 pb-2 mt-3">
+                                                    <h4 style="color: #495057 ;"><b>Delivery Address</b></h4>
+                                                </div>
+<div class="row mb-4">
+                                                    <div class="col">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" for="form9Example1"><b>Name:</b></label>
+                                                            <!-- <input type="text" value="{{ form.name }}" name="name" class="form-control input-custom" /> -->
+                                                            {{form.name}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" for="form9Example2"><b>Phone
+                                                                Number:</b></label>
+                                                            {{ form.mobileno }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-4">
+                                                    <div class="col">
+                                                        <div class="form-outline">
+                                                            <label class="form-label"
+                                                                for="form9Example3"><b>Address:</b></label>
+                                                            {{ form.address }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" for="form9Example4"><b>Pincode:</b></label>
+                                                            {{ form.pincode }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-4">
+                                                    <div class="col">
+                                                        <div class="form-outline">
+                                                            <label class="form-label"
+                                                                for="form9Example6"><b>District:</b></label>{{ form.district }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-outline">
+                                                            <label class="form-label" for="typeEmail"><b>Seller:</b></label>
+                                                            {{ form.seller }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+          <button type="submit">Save</button>
+               <a href="{% url 'address:address_changelist' %}">Nevermind</a>
+
+        </div>
+                                            </div>
+                                        </div>
+
+      </form>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+           <script>
+    $("#id_district").change(function () {
+        const url = $("#customerForm").attr("data-sellers-url");
+        const districtId = $(this).val();
+
+        $.ajax({
+                url: url,
+                data: {
+                    'district_id': districtId
+            },
+            success: function (data) {
+                     console.log(data)
+                    $("#id_seller").html(data);
+
+<!--                     let html_data = '<option value="">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>';-->
+<!--                    data.forEach(function (seller) {-->
+<!--                        html_data += `<option value="${seller.id}">${seller.name}</option>`-->
+<!--                    });-->
+<!--                    console.log(html_data);-->
+<!--                    $("#id_seller").html(html_data);-->
+
+
+
+            }
+        });
+
+    });
+</script>
+
+
+{% endblock %}

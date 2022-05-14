@@ -1,0 +1,46 @@
+{% load static %}
+<header>
+    <input type="checkbox" name="" id="toggler">
+    <label for="toggler" class="fas fa-bars"></label>
+
+    <a href="{% url 'flower:home' %}" class="logo"><img src="{% static 'images/flo.png' %}" width="40" height="40"> flower<span>.</span></a>
+
+    <nav class="navbar">
+        <ul class="d-flex flex-row align-items-start justify-content-start">
+        <a href="{% url 'flower:home' %}">home</a>
+
+             <li class="nav-item dropdown {% if 'connect' in request.path %} active {% endif %}">
+        <a class="anav-link dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          Categories
+        </a>
+        <ul class="dropdown-menu"  aria-labelledby="navbarDropdown">
+            {% for cat in links %}
+          <li><a class="dropdown-item"  href="{{cat.get_url}}">{{cat.name}}</a></li>
+            {% endfor %}
+        </ul>
+      </li>
+            <a href="#gallery">Gallery</a>
+
+             </ul>
+        &nbsp;
+       <div>
+        <ul>
+        {% if user.is_authenticated %}
+            <div><a><b>Hello {{user.username}}</b></a>
+            <a href="{% url 'flower:logout' %}">Logout</a></div>
+            {% else %}
+            <div><a href="{% url 'flower:register' %}"></a>
+            <a href="{% url 'flower:login' %}"></a></div>
+            {% endif %}
+            </ul>
+            </div>
+         </nav>
+
+
+    <div class="icons">
+        <a href="{% url 'connect:allProdCat' %}" class="fas fa-heart"></a>
+        <a href="{% url 'cart:cart_detail' %}" class="fas fa-shopping-cart"></a>
+
+    </div>
+
+</header>

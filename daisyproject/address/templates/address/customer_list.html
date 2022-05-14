@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br><br><br><br><br><br>
+<section class="products">
+
+    <h1 class="heading"> <span>Delivery Address</span> </h1>
+      </section>
+     <p>
+    <a href="{% url 'address:address_add' %}">Add Address</a>
+  </p>
+
+   <table border="1">
+    <thead>
+      <tr>
+        <th>Name</th>
+
+        <th>district</th>
+        <th>seller</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cus in address %}
+        <tr>
+          <td><a href="{% url 'address_change' address.pk %}">{{ cus.name }}</a></td>
+
+          <td>{{ cus.district.name }}</td>
+          <td>{{ cus.seller.name }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">No address. <a href="{% url 'address:address_add' %}">Add the first address</a>.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+
+{% endblock %}
